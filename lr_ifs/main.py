@@ -25,11 +25,6 @@ def main(
     # read ifs od-speciated model
     for _i in (track(range(1), description=f':book: Reading IFS data',disable=not verbose)):
         ds_ifs = ifs.read(CFG.get('ifs_path'), date)
-        
-    #with Progress() as progress:
-    #    task = progress.add_task(total=1, description=f':book: Reading IFS data', visible=verbose)
-    #    ds_ifs = ifs.read(CFG.get('ifs_path'), date)
-    #    progress.update(task, advance=1)
 
     # get aerosol properties
     aer_properties = utils.get_aer_properties()
