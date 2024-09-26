@@ -1,6 +1,6 @@
 # LR-IFS
 
-Compute Lidar Ratio (LR) based on ECMWF IFS data.
+Compute Lidar Ratio (LR) based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts/documentation-and-support/changes-ecmwf-model) forecasts.
 
 Methodology:
 - We use the IFS forecasts data of optical depth forecasts for the different chemical species.
