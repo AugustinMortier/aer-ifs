@@ -38,10 +38,21 @@ def main(
     path_output.mkdir(parents=True, exist_ok=True)
     ds_ifs.to_netcdf(Path(path_output, f"lr_ifs-{date.strftime('%Y%m%d')}.nc"), mode='w')
     
-    # open aprofile files
     if aprofiles:
-        ds_apro = apro.read(CFG.get('vpro_path'), date, verbose)
-        print(ds_apro)
+        # open aprofiles files of the day
+        dict_apro = apro.read(CFG.get('vpro_path'), date, verbose)
+
+        # fill up lr_ifs dictionary with closest lr value at right wavelength
+        lr_ifs = {}
+        for station in dict_apro:
+            coloc_ds = utils.get_closest_station_values(ds_ifs, dict_apro[station].get('station_latitude'), dict_apro[station].get('station_longitude'))
+            station_wavelength = int(dict_apro[station].get('l0_wavelength'))
+            lr_ifs[station] = {
+                'data': coloc_ds.to_dict(),
+                'apriori': {
+                    'lr': float(coloc_ds[f'lr-{station_wavelength}-rh30'].data)
+                }
+            }
 
 if __name__ == "__main__":
     app()
