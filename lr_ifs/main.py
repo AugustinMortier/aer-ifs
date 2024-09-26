@@ -1,5 +1,6 @@
 import typer
 from datetime import datetime
+import json
 from pathlib import Path
 from rich.progress import track
 
@@ -53,6 +54,21 @@ def main(
                     'lr': float(coloc_ds[f'lr-{station_wavelength}-rh30'].data)
                 }
             }
+        
+        # add some attributes
+        lr_ifs['attributes'] = {
+            "default": {
+                "apriori": {
+                    "lr": 50
+                }
+            },
+            "date": date.strftime('%Y%m%d')
+        }
+        
+        # write file
+        file_path = Path(path_output , 'lr_ifs.json')
+        with file_path.open('w') as json_file:
+            json.dump(lr_ifs, json_file, indent=4)
 
 if __name__ == "__main__":
     app()
