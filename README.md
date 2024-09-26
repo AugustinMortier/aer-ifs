@@ -12,7 +12,7 @@ Aerosol LR for the different species are based on
   - [Kim et al., 2018](https://amt.copernicus.org/articles/11/6107/2018/), at 532nm
 
 > [!NOTE]
-> Lidar Ratios of the different [aerosol species](lr_ifs/config/aerosol_properties.json) are provided at RH=30%.
+> Lidar Ratios of the different [aerosol species](lr_ifs/config/aerosol_properties.json) are provided, when applicable, at RH=30%.
  
 
 e.g: 2024-09-26
