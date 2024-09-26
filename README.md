@@ -3,13 +3,16 @@
 Compute Lidar Ratio (LR) based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts/documentation-and-support/changes-ecmwf-model) forecasts.
 
 Methodology:
-- We use the IFS forecasts data of optical depth forecasts for the different chemical species.
-- For each species, we calculate a lidar ratio weighted by the relative optical depth contribution, based on 
+- We use the IFS forecasts data of aerosol optical depth forecasts for the different chemical components.
+- For each aerosol species, we calculate a LR weighted by the relative optical depth contribution.
+- The total LR is determined as the sum of the weighted LR of the different aerosols species.
+  
+Aerosol LR for the different species are based on 
   - [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf), at 1064nm
   - [Kim et al., 2018](https://amt.copernicus.org/articles/11/6107/2018/), at 532nm
 
 > [!NOTE]
-> Lidar Ratios of [chemical species](lr_ifs/config/aerosol_properties.json) at 1064 nm are provided at RH=30%.
+> Lidar Ratios of the different [aerosol species](lr_ifs/config/aerosol_properties.json) are provided at RH=30%.
  
 
 e.g: 2024-09-26
@@ -30,9 +33,9 @@ git clone https://github.com/AugustinMortier/lr-ifs.git
 poetry install
 ```
 
-- via pip
+- via pip/pipx
 ```
-pip install
+pip install .
 ```
 
 ## how to use

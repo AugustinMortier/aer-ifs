@@ -51,7 +51,7 @@ def get_closest_station_values(ds: xr.DataArray, station_lat: float, station_lon
     coloc_ds = ds.sel(latitude=station_lat, longitude=station_lon, method='nearest')
     return coloc_ds
 
-def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str]) -> dict:
+def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str], rh: str) -> dict:
     # fill up lr_ifs dictionary with closest lr value at right wavelength
     lr_ifs = {}
     for station in dict_apro:
@@ -63,7 +63,7 @@ def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str]) -> 
         lr_ifs[station] = {
             'data': data_dict,
             'apriori': {
-                'lr': round(float(coloc_ds[f'lr-{station_wavelength}-rh30'].data), 2)
+                'lr': round(float(coloc_ds[f'lr-{station_wavelength}-{rh}'].data), 2)
             }
         }
     

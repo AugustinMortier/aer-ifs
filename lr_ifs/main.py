@@ -45,7 +45,7 @@ def main(
         dict_apro = apro.read(CFG.get('vpro_path'), date, verbose)
 
         # fill up lr_ifs dictionary with closest lr value at right wavelength
-        lr_ifs = utils.collocated_dict(ds_ifs, dict_apro, CFG['vars'])
+        lr_ifs = utils.collocated_dict(ds_ifs, dict_apro, CFG['vars'], 'rh30')
         
         # write file
         for _i in (track(range(1), description=f':floppy_disk: Writing json file',disable=not verbose)):
