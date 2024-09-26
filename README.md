@@ -6,17 +6,7 @@ Methodology:
 - We use the IFS forecasts data of optical depth forecasts for the different chemical species.
 - For each species, we calculate a lidar ratio weighted by the relative optical depth contribution, based on [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf)
 
- **Species**    | **Lidar Ratio (sr)** 
-----------------|----------------------
- Sea Salt       | 21.72                
- Dust           | 13.39                
- Organic Matter | 34.15                
- Sulphate       | 34.14                
- Black Carbon   | 168.265              
- Nitrate        | 33.5                 
- Ammonium       | 34.1                 
-
-Lidar Ratio of chemical species at 1064 nm and RH: 30%
+ [!NOTE] Lidar Ratios of [chemical species](lr_ifs/config/aerosol_properties.json) are provided at 1064 nm and for RH=30% when applicable.
 
 e.g:
 
