@@ -4,7 +4,7 @@ Compute Lidar Ratio (LR) based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts
 
 Methodology:
 - We use the IFS forecasts data of optical depth forecasts for the different chemical species.
-- For each species, we calculate a lidar ratio weighted by the relative optical depth contribution, based on [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf) (currently at 1064nm, RH: 30%)
+- For each species, we calculate a lidar ratio weighted by the relative optical depth contribution, based on [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf)
 
  **Species**    | **Lidar Ratio (sr)** 
 ----------------|----------------------
@@ -15,6 +15,8 @@ Methodology:
  Black Carbon   | 168.265              
  Nitrate        | 33.5                 
  Ammonium       | 34.1                 
+
+Lidar Ratio of chemical species at 1064 nm and RH: 30%
 
 e.g:
 
