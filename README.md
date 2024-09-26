@@ -1,6 +1,6 @@
 # LR-IFS
 
-Compute Lidar Ratio based on ECMWF IFS data.
+Compute Lidar Ratio (LR) based on ECMWF IFS data.
 
 Methodology:
 - We use the IFS forecasts data of optical depth forecasts for the different chemical species.
@@ -37,5 +37,5 @@ lr-ifs --date 2024-09-26
 ```
 
 This will create into `output_path` (default: `./data/`):
-- `lr_ifs-20240926.nc`: netcdf file which contains the computed Lidar Ratio.
+- `lr_ifs-20240926.nc`: netcdf file which contains the computed LR.
 - `lr_ifs.json` (if `aprofiles` option enabled (default)): json file which contains, for each E-PROFILE station available for the selected day, the corresponding IFS-LR.
