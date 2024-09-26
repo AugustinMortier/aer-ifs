@@ -3,12 +3,12 @@
 Compute Lidar Ratio based on ECMWF IFS data.
 
 Methodology:
-- We use IFS optical depth forecasts of different chemical species.
+- We use the IFS forecasts data of optical depth forecasts for the different chemical species.
 - For each species, we calculate a lidar ratio weighted by the relative optical depth contribution, based on [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf) (currently at 1064nm, RH: 30%)
 
 e.g:
 
-![2024-09-26](examples/examples/lr-1064nm-rh30-20240926.png)
+![2024-09-26](examples/lr-1064nm-rh30-20240926.png)
 
 
 ## get started
