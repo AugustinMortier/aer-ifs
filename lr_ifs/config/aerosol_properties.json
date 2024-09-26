@@ -1,0 +1,12 @@
+{
+    "1064nm-rh30": {
+        "ss": 21.72,
+        "du": 13.39,
+        "om": 34.15,
+        "su": 34.14,
+        "bc": 168.265,
+        "ni": 33.5,
+        "am": 34.1,
+        "reference": "https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf"
+    }
+}
