@@ -29,7 +29,7 @@ poetry install
 pip install
 ```
 
-## basic use
+## how to use
 Compute LR for the 2024-09-26
 
 ```
