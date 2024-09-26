@@ -6,9 +6,11 @@ Methodology:
 - We use the IFS forecasts data of optical depth forecasts for the different chemical species.
 - For each species, we calculate a lidar ratio weighted by the relative optical depth contribution, based on [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf)
 
- [!NOTE] Lidar Ratios of [chemical species](lr_ifs/config/aerosol_properties.json) are provided at 1064 nm and for RH=30% when applicable.
+> [!NOTE]
+> Lidar Ratios of [chemical species](lr_ifs/config/aerosol_properties.json) are provided at 1064 nm and for RH=30% when applicable.
+ 
 
-e.g:
+e.g: 2024-09-26
 
 ![2024-09-26](examples/lr-1064nm-rh30-20240926.png)
 
