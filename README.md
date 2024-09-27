@@ -7,12 +7,9 @@ Methodology:
 - For each aerosol species, we calculate a LR weighted by the relative optical depth contribution.
 - The total LR is determined as the sum of the weighted LR of the different aerosols species.
   
-Aerosol LR for the different species are based on 
-  - [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf), at 1064nm
+[Aerosol LR ](config/aerosol_properties.json) for the different species are based on 
+  - [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf), at 1064nm (and RH=30% when applicable)
   - [Kim et al., 2018](https://amt.copernicus.org/articles/11/6107/2018/), at 532nm
-
-> [!NOTE]
-> Lidar Ratios of the different [aerosol species](lr_ifs/config/aerosol_properties.json) are provided, when applicable, at RH=30%.
  
 
 e.g: 2024-09-26
@@ -37,6 +34,11 @@ poetry install
 ```
 pip install .
 ```
+
+> [!NOTE]
+> ```
+> pip install "git+ssh://git@github.com/AugustinMortier/A-Profiles.git"
+> ```
 
 ## how to use
 Compute LR for the 2024-09-26
