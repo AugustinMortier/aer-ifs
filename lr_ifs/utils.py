@@ -17,7 +17,9 @@ def get_config(store: Store) -> dict:
     }
 
 def get_aer_properties() -> dict:
-    return json.load(open('lr_ifs/config/aerosol_properties.json'))
+    # read aer_properties.json files
+    f = open(Path(Path(__file__).parent,'config','aer_properties.json'))
+    return json.load(f)
 
 def compute_lr(ds: xr.DataArray, aer_properties: dict, vars: List[str]) -> xr.DataArray:
     
