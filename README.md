@@ -37,7 +37,7 @@ pip install .
 
 > [!NOTE]
 > ```
-> pip install "git+ssh://git@github.com/AugustinMortier/A-Profiles.git"
+> pip install "git+ssh://git@github.com/AugustinMortier/lr-ifs.git"
 > ```
 
 ## how to use
