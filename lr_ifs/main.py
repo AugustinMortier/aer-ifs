@@ -29,7 +29,7 @@ def main(
         ds_ifs = ifs.read(CFG.get('ifs_path'), date)
 
     # get aerosol properties
-    aer_properties = utils.get_aer_properties()
+    aer_properties = utils.get_aerosol_properties()
     
     # compute lr
     for _i in (track(range(1), description=f':computer: Compute LR from IFS data',disable=not verbose)):

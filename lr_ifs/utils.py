@@ -2,6 +2,7 @@
 from enum import Enum
 from datetime import datetime
 import json
+from pathlib import Path
 import xarray as xr
 from typing import List
 
@@ -16,9 +17,9 @@ def get_config(store: Store) -> dict:
         'vars': ['amaod550', 'bcaod550', 'duaod550', 'niaod550', 'omaod550', 'ssaod550', 'suaod550']
     }
 
-def get_aer_properties() -> dict:
-    # read aer_properties.json files
-    f = open(Path(Path(__file__).parent,'config','aer_properties.json'))
+def get_aerosol_properties() -> dict:
+    # read aerosol_properties.json files
+    f = open(Path(Path(__file__).parent,'config','aerosol_properties.json'))
     return json.load(f)
 
 def compute_lr(ds: xr.DataArray, aer_properties: dict, vars: List[str]) -> xr.DataArray:
