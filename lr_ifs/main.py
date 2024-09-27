@@ -1,4 +1,5 @@
 import typer
+from typing_extensions import Annotated
 from datetime import datetime
 import json
 from pathlib import Path
@@ -14,11 +15,11 @@ app = typer.Typer()
 
 @app.command()
 def main(
-        date: datetime=datetime.today(),
-        aprofiles: bool=True,
-        store: utils.Store='storeB',
-        output: Path='./data/',
-        verbose: bool=True
+        date: Annotated[datetime, typer.Option(help="date")]=datetime.today(),
+        aprofiles: Annotated[bool, typer.Option(help="process lr at aprofiles collocated stations")]=True,
+        store: Annotated[utils.Store, typer.Option(help="ppi store system")]='storeB',
+        output: Annotated[Path, typer.Option(help="output path")]='./data/',
+        verbose: Annotated[bool, typer.Option(help="verbose mode")]=True
     ):
     
     CFG = utils.get_config(store)
