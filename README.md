@@ -36,6 +36,7 @@ pip install .
 ```
 
 > [!NOTE]
+> You can also install lr-ifs with this one liner:
 > ```
 > pip install "git+ssh://git@github.com/AugustinMortier/lr-ifs.git"
 > ```
