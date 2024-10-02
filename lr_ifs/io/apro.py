@@ -13,5 +13,6 @@ def read(path: Path, datetime: datetime, verbose) -> dict:
         ds = xr.open_dataset(file, chunks=-1)[vars].load()
         station_id = f"{ds.attrs['wigos_station_id']}-{ds.attrs['instrument_id']}"
         dict[station_id] = ds.attrs
+        print(station_id, ds.attrs['l0_wavelength'])
     
     return dict
