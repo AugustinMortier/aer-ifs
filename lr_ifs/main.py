@@ -26,11 +26,14 @@ def main(
     
     # read ifs od-speciated model
     for _i in (track(range(1), description=f':robot: Reading IFS OD data',disable=not verbose)):
-        od_ifs = ifs.readOD(CFG.get('ifs_od_path'), date)
+        od_ifs = ifs.read_od(CFG.get('ifs_od_path'), date)
     
     # read ifs rh
     for _i in (track(range(1), description=f':robot: Reading IFS RH data',disable=not verbose)):
-        rh_ifs = ifs.reaRH(CFG.get('ifs_rh_path'), date)
+        rh_ifs = ifs.read_rh(CFG.get('ifs_rh_path'), date)
+    
+    # merge two datasets
+    ds_ifs = utils.merge_ifs(od_ifs, rh_ifs)
 
     # get aerosol properties
     aer_properties = utils.get_aerosol_properties()
@@ -50,7 +53,7 @@ def main(
         dict_apro = apro.read(CFG.get('vpro_path'), date, verbose)
 
         # fill up lr_ifs dictionary with closest lr value at right wavelength
-        lr_ifs = utils.collocated_dict(ds_ifs, dict_apro, CFG['vars'], 'rh30')
+        lr_ifs = utils.collocated_dict(ds_ifs, dict_apro, CFG['vars'] + ['relative_humidity_pl'])
         
         # write file
         for _i in (track(range(1), description=f':floppy_disk: Writing json file',disable=not verbose)):

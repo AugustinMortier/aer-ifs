@@ -3,7 +3,7 @@ from pathlib import Path
 
 import xarray as xr
 
-def readOD(path: Path, datetime: datetime):
+def read_od(path: Path, datetime: datetime):
     # the file for dd-mm-yyyy contains forecast for dd+1-mm-yyyy
     datetime = datetime - timedelta(days=1)
     yyyymmdd = datetime.strftime('%Y%m%d')
@@ -12,7 +12,7 @@ def readOD(path: Path, datetime: datetime):
     ds = xr.open_dataset(ifs_file)[vars].isel(time=0).load()
     return ds
 
-def readRH(path: Path, datetime: datetime):
+def read_rh(path: Path, datetime: datetime):
     # the file for dd-mm-yyyy contains forecast for dd+1-mm-yyyy
     #datetime = datetime - timedelta(days=1)
     yyyymmdd = datetime.strftime('%Y%m%d')
@@ -24,7 +24,7 @@ def readRH(path: Path, datetime: datetime):
         longitude=((ds.longitude + 360) % 360)
     )
     # sort longitude
-    rh_ifs = rh_ifs.sortby('longitude')
+    ds = ds.sortby('longitude')
     # extract value at the last pressure level (close to the ground)
     ds = ds.isel(pressure=len(ds.pressure)-1).drop_vars(['time', 'pressure'])
     return ds
