@@ -13,6 +13,7 @@ netcdf4 = "^1.7.1.post2"
 matplotlib = "^3.9.2"
 dask = "^2024.9.0"
 rich = "^13.8.1"
+scipy = "^1.14.1"
 
 
 [tool.poetry.group.dev.dependencies]

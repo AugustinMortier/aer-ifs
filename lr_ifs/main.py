@@ -25,8 +25,12 @@ def main(
     CFG = utils.get_config(store)
     
     # read ifs od-speciated model
-    for _i in (track(range(1), description=f':robot: Reading IFS data',disable=not verbose)):
-        ds_ifs = ifs.read(CFG.get('ifs_path'), date)
+    for _i in (track(range(1), description=f':robot: Reading IFS OD data',disable=not verbose)):
+        od_ifs = ifs.readOD(CFG.get('ifs_od_path'), date)
+    
+    # read ifs rh
+    for _i in (track(range(1), description=f':robot: Reading IFS RH data',disable=not verbose)):
+        rh_ifs = ifs.reaRH(CFG.get('ifs_rh_path'), date)
 
     # get aerosol properties
     aer_properties = utils.get_aerosol_properties()
