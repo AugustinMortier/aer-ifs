@@ -3,12 +3,13 @@
 Compute Lidar Ratio (LR) based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts/documentation-and-support/changes-ecmwf-model) forecasts.
 
 Methodology:
-- We use the IFS forecasts data of aerosol optical depth forecasts for the different chemical components.
-- For each aerosol species, we calculate a LR weighted by the relative optical depth contribution.
+- We get the IFS forecasts data of aerosol optical depth forecasts for the different chemical components.
+- We get the IFS forecasts data of relative humidity.
+- For each aerosol species, we calculate a LR weighted by the relative optical depth contribution for different RH values.
 - The total LR is determined as the sum of the weighted LR of the different aerosols species.
   
 [Aerosol LR ](config/aerosol_properties.json) for the different species are based on 
-  - [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf), at 1064nm (and RH=30% when applicable)
+  - [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf), at 1064nm
   - [Kim et al., 2018](https://amt.copernicus.org/articles/11/6107/2018/), at 532nm
  
 

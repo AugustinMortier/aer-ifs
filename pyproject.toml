@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lr-ifs"
-version = "0.1.1"
+version = "0.2.0"
 description = "Lidar Ratio computation from ECMWF IFS model data"
 authors = ["augustinm <augustinm@met.no>"]
 readme = "README.md"
@@ -13,6 +13,7 @@ netcdf4 = "^1.7.1.post2"
 matplotlib = "^3.9.2"
 dask = "^2024.9.0"
 rich = "^13.8.1"
+scipy = "^1.14.1"
 
 
 [tool.poetry.group.dev.dependencies]
