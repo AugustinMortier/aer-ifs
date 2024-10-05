@@ -19,9 +19,9 @@ lr-ifs --date 2024-09-26
 ```
 
 <figure id="examples">
-  <div id="panel" style="display: inline-flex">
-    <img src="examples/lr-1064nm-rh30-20240926.png" align="left" width="49%">
-    <img src="examples/lr-1064nm-rh80-20240926.png" width="49%">
+  <div id="panel" float="left">
+    <img src="examples/lr-1064nm-rh30-20240926.png" width="50%">
+    <img src="examples/lr-1064nm-rh80-20240926.png" width="50%">
   </div>
   <figcaption>e.g: 2024-09-26 - 1064 nm</figcaption>
 </figure>
