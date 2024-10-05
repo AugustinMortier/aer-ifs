@@ -1,9 +1,3 @@
-<style>
-  #examples > #panel{
-    display: inline-flex;
-  }
-</style>
-
 # LR-IFS
 
 Compute Lidar Ratio (LR) based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts/documentation-and-support/changes-ecmwf-model) forecasts.
@@ -25,7 +19,7 @@ lr-ifs --date 2024-09-26
 ```
 
 <figure id="examples">
-  <div id="panel">
+  <div id="panel" style="display: inline-flex">
     <img src="examples/lr-1064nm-rh30-20240926.png" width="50%">
     <img src="examples/lr-1064nm-rh80-20240926.png" width="50%">
   </div>
