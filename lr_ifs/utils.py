@@ -44,16 +44,16 @@ def compute_lr(ds: xr.DataArray, aer_properties: dict, vars: List[str]) -> xr.Da
                 key_vars.append(f'lr-{species}-{wav}-{rh}')
             ds[f'lr-{wav}-{rh}'] = sum(ds[key_var] for key_var in key_vars)
             ds[f'lr-{wav}-{rh}'] = ds[f'lr-{wav}-{rh}'].assign_attrs({
-                'long_name': f'Lidar Ratio at {wav}nm and RH: {rh}%',
+                'long_name': f'Lidar Ratio at {wav.split("wav")[1]}nm and RH: {rh.split("rh")[1]}%',
                 'units': 'sr'
             })
 
     # clean up vars
     for var in vars:
+        species = var[:2]
         ds = ds.drop_vars(f'{var}/aod550')
         for wav in aer_properties:
             for rh in aer_properties[wav]:
-                species = var[:2]
                 ds = ds.drop_vars(f'lr-{species}-{wav}-{rh}')
     return ds
 
@@ -65,7 +65,7 @@ def get_closest_station_values(ds: xr.DataArray, station_lat: float, station_lon
 
 def get_closest_key(ds, wavelength):
     # list variables matching wavelength
-    variables = [var for var in list(ds.variables) if var.startswith(f'lr-{wavelength}')]
+    variables = [var for var in list(ds.variables) if var.startswith(f'lr-wav{wavelength}')]
     # relative humidity
     rh_value = float(ds['relative_humidity_pl'].data)
     # Step 1: Extract RH values by splitting the string

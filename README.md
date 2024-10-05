@@ -52,3 +52,8 @@ lr-ifs --date 2024-09-26
 This will create into `output_path` (default: `./data/`):
 - `{yyyy}/{mm}/lr_ifs-{yyyymmdd}.nc`: netcdf file which contains the computed LR.
 - `{yyyy}/{mm}/lr_ifs-{yyyymmdd}.json` (if `aprofiles` option enabled (default)): json file which contains, for each E-PROFILE station available and for the selected day, the corresponding IFS-LR.
+
+## limitations
+- Due to OD definition, the computed LR is an averaged value for the whole atmospheric column.
+- Only one value per day is computed at the moment, which corresponds to 00:00:00Z.
+- When applicable (1064nm), only the RH at the surface level is considered.
