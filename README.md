@@ -8,7 +8,7 @@ Methodology:
 - For each aerosol species, we calculate a **LR weighted** by the relative optical depth contribution for different RH values.
 - The total LR is determined as the **sum of the weighted LR** of the different aerosols species.
   
-[Aerosol LR ](lr_ifs/config/aerosol_properties.json) for the different species are based on 
+Individual [aerosol LR](lr_ifs/config/aerosol_properties.json) for the different species are based on 
   - [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf), at 1064nm (RH dependent)
   - [Kim et al., 2018](https://amt.copernicus.org/articles/11/6107/2018/), at 532nm (ambient RH)
  
