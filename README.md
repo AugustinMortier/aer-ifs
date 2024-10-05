@@ -13,9 +13,9 @@ Methodology:
   - [Kim et al., 2018](https://amt.copernicus.org/articles/11/6107/2018/), at 532nm (ambient RH)
  
 
-e.g: 2024-10-05
+e.g: 2024-09-26
 
-![2024-10-05](examples/lr-1064nm-rh80-20241005.png)
+![2024-09-26](examples/lr-1064nm-rh80-20240926.png)
 
 
 ## get started
