@@ -15,7 +15,7 @@ Methodology:
 
 e.g: 2024-09-26
 
-![2024-09-26](examples/lr-1064nm-rh30-20240926.png)
+![2024-09-26](examples/lr-1064nm-rh80-20241005.png)
 
 
 ## get started
