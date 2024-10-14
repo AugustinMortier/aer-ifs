@@ -15,15 +15,15 @@ Individual [aerosol LR](lr_ifs/config/aerosol_properties.json) for the different
 ## example
 
 ```
-lr-ifs --date 2024-09-26
+lr-ifs --date 2024-10-04
 ```
 
 <figure id="examples">
   <div id="panel" float="left">
-    <img src="examples/lr-1064nm-rh30-20240926.png" width="49%">
-    <img src="examples/lr-1064nm-rh80-20240926.png" width="49%">
+    <img src="examples/lr-1064nm-rh30-20241004.png" width="49%">
+    <img src="examples/lr-1064nm-rh80-20241004.png" width="49%">
   </div>
-  <figcaption>Fig 1: IFS LR - 2024-09-26 - 1064 nm</figcaption>
+  <figcaption>Fig 1: IFS LR - 2024-10-04 - 1064 nm</figcaption>
 </figure>
 
 
