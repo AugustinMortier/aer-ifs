@@ -26,5 +26,47 @@
     "am": {
         "type": "hydrophilic",
         "column": 8
+    },
+    "description_hydrophilic": {
+        "1": "Sea salt, bin 1, 0.03-0.5 micron, OPAC",
+        "2": "Sea salt, bin 2, 0.50-5.0 micron, OPAC",
+        "3": "Sea salt, bin 3, 5.0-20.0 micron, OPAC",
+        "4": "Hydrophilic organic matter, OPAC",
+        "5": "Ammonium sulfate (for sulfate), GACP Lacis et al https://gacp.giss.nasa.gov/data_sets/",
+        "6": "Secondary organic aerosol - biogenic, Moise et al 2015",
+        "7": "Secondary organic aerosol - anthropogenic, Moise et al 2015",
+        "8": "Fine mode Ammonium sulfate (for ammonia), GACP Lacis et al https://gacp.giss.nasa.gov/data_sets/",
+        "9": "Fine mode Nitrate, GLOMAP",
+        "10": "Coarse mode Nitrate, GLOMAP",
+        "11": "Hydrophilic organic matter, Brown et al 2018",
+        "12": "Sulfate, GACP Lacis et al https://gacp.giss.nasa.gov/data_sets/",
+        "13": "Sulfate, GACP Lacis et al https://gacp.giss.nasa.gov/data_sets/ with modified size distribution",
+        "14": "Desert dust, bin 1, 0.03-0.55 micron, Composite-Philic Non-Sphere-Scaling-Kandler (Balkanski et 2007 , Di Baggio 2017, Ryder et al 2019)",
+        "15": "Desert dust, bin 2, 0.55-0.90 micron, Composite-Philic Non-Sphere-Scaling-Kandler (Balkanski el 2007 , Di Baggio 2017, Ryder et al 2019)",
+        "16": "Desert dust, bin 3, 0.90-20.0 micron, Composite-Philic Non-Sphere-Scaling-Kandler (Balkanski el 2007 , Di Baggio 2017, Ryder et al 2019)",
+        "17": "Desert dust, bin 1, 0.03-0.55 micron, Composite-Philic (Balkanski et 2007 , Di Baggio 2017, Ryder et al 2019)",
+        "18": "Desert dust, bin 2, 0.55-0.90 micron, Composite-Philic (Balkanski el 2007 , Di Baggio 2017, Ryder et al 2019)",
+        "19": "Desert dust, bin 3, 0.90-20.0 micron, Composite-Philic (Balkanski el 2007 , Di Baggio 2017, Ryder et al 2019)"
+    },
+    "description_hydrophobic": {
+        "1": "Desert dust, bin 1, 0.03-0.55 micron, (SW) Dubovik et al. 2002 (LW) Fouquart et al. 1987",
+        "2": "Desert dust, bin 2, 0.55-0.90 micron, (SW) Dubovik et al. 2002 (LW) Fouquart et al. 1987",
+        "3": "Desert dust, bin 3, 0.90-20.0 micron, (SW) Dubovik et al. 2002 (LW) Fouquart et al. 1987",
+        "4": "Desert dust, bin 1, 0.03-0.55 micron, Fouquart et al 1987",
+        "5": "Desert dust, bin 2, 0.55-0.90 micron, Fouquart et al 1987",
+        "6": "Desert dust, bin 3, 0.90-20.0 micron, Fouquart et al 1987",
+        "7": "Desert dust, bin 1, 0.03-0.55 micron, Woodward 2001, Table 2",
+        "8": "Desert dust, bin 2, 0.55-0.90 micron, Woodward 2001, Table 2",
+        "9": "Desert dust, bin 3, 0.90-20.0 micron, Woodward 2001, Table 2",
+        "10": "Hydrophobic organic matter, OPAC (hydrophilic at RH=20%)",
+        "11": "Black carbon, OPAC",
+        "12": "Black carbon, Bond and Bergstrom 2006",
+        "13": "Black carbon, Stier et al 2007",
+        "14": "Stratospheric sulfate (hydrophilic ammonium sulfate at RH 20%-30%)",
+        "15": "Desert dust, bin 1, 0.03-0.55 micron, Composite (Balkanski et 2007 , Di Baggio 2017, Ryder et al 2019)",
+        "16": "Desert dust, bin 2, 0.55-0.90 micron, Composite (Balkanski el 2007 , Di Baggio 2017, Ryder et al 2019)",
+        "17": "Desert dust, bin 3, 0.90-20.0 micron, Composite (Balkanski el 2007 , Di Baggio 2017, Ryder et al 2019)",
+        "18": "Hydrophobic organic matter, Brown et al 2018 (hydrophilic at RH=20%)",
+        "19": "Black carbon, Williams 2007"
     }
 }
