@@ -3,7 +3,7 @@ from pathlib import Path
 
 import xarray as xr
 
-def read_od(path: Path, datetime: datetime):
+def read_od(path: Path, datetime: datetime) -> xr.Dataset:
     # the file for dd-mm-yyyy contains forecast for dd+1-mm-yyyy
     datetime = datetime - timedelta(days=1)
     yyyymmdd = datetime.strftime('%Y%m%d')
@@ -13,7 +13,7 @@ def read_od(path: Path, datetime: datetime):
     ds = xr.open_dataset(ifs_file)[vars].isel(time=0).load()
     return ds
 
-def read_rh(path: Path, datetime: datetime):
+def read_rh(path: Path, datetime: datetime) -> xr.Dataset:
     # the file for dd-mm-yyyy contains forecast for dd+1-mm-yyyy
     datetime = datetime - timedelta(days=1)
     yyyymmdd = datetime.strftime('%Y%m%d')
@@ -29,4 +29,9 @@ def read_rh(path: Path, datetime: datetime):
     ds = ds.sortby('longitude')
     # extract value at the last pressure level (close to the ground)
     ds = ds.isel(pressure=len(ds.pressure)-1).drop_vars(['time', 'pressure'])
+    return ds
+
+def get_aer_properties() -> xr.Dataset:
+    path = Path('lr_ifs/config/aerosol_ifs_49R1_20230725.nc')
+    ds = xr.open_dataset(path)
     return ds

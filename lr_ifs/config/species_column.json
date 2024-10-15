@@ -1,0 +1,30 @@
+{
+    "ss": {
+        "type": "hydrophilic",
+        "column": 2
+    },
+    "du": {
+        "type": "hydrophilic",
+        "column": 19
+    },
+    "om": {
+        "type": "hydrophilic",
+        "column": 4
+    },
+    "su": {
+        "type": "hydrophilic",
+        "column": 13
+    },
+    "bc": {
+        "type": "hydrophilic",
+        "column": 11
+    },
+    "ni": {
+        "type": "hydrophilic",
+        "column": 9
+    },
+    "am": {
+        "type": "hydrophilic",
+        "column": 8
+    }
+}

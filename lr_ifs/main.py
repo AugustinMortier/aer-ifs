@@ -34,13 +34,10 @@ def main(
     
     # merge two datasets
     ds_ifs = utils.merge_ifs(od_ifs, rh_ifs)
-
-    # get aerosol properties
-    aer_properties = utils.get_aerosol_properties()
     
     # compute lr
     for _i in (track(range(1), description=f':computer: Compute LR from IFS data',disable=not verbose)):
-        ds_ifs = utils.compute_lr(ds_ifs, aer_properties, CFG['vars'])
+        ds_ifs = utils.compute_lr(ds_ifs, CFG['vars'], CFG['wavelengths'], CFG['rhs'])
 
     # write file
     for _i in (track(range(1), description=f':floppy_disk: Writing netcdf file',disable=not verbose)):

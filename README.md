@@ -8,22 +8,20 @@ Methodology:
 - For each aerosol species, we calculate a **LR weighted** by the relative optical depth contribution for different RH values.
 - The total LR is determined as the **sum of the weighted LR** of the different aerosols species.
   
-Individual [aerosol LR](lr_ifs/config/aerosol_properties.json) for the different species are based on 
-  - [Flentje et al., 2021](https://gmd.copernicus.org/articles/14/1721/2021/gmd-14-1721-2021.pdf), at 1064nm (RH dependent)
-  - [Kim et al., 2018](https://amt.copernicus.org/articles/11/6107/2018/), at 532nm (ambient RH)
+Individual aerosol LR are taken from the [IFS 49R1](lr_ifs/config/aerosol_ifs_49R1_20230725.nc) input configuration file. For each species, a [specific column](lr_ifs/config/species_column.json) is selected.
  
 ## example
 
 ```
-lr-ifs --date 2024-10-04
+lr-ifs --date 2024-10-05
 ```
 
 <figure id="examples">
   <div id="panel" float="left">
-    <img src="examples/lr-1064nm-rh30-20241004.png" width="49%">
-    <img src="examples/lr-1064nm-rh80-20241004.png" width="49%">
+    <img src="examples/lr-1064nm-rh30-20241005.png" width="49%">
+    <img src="examples/lr-1064nm-rh80-20241005.png" width="49%">
   </div>
-  <figcaption>Fig 1: IFS LR - 2024-10-04 - 1064 nm</figcaption>
+  <figcaption>Fig 1: IFS LR - 2024-10-05 - 1064 nm</figcaption>
 </figure>
 
 
@@ -63,6 +61,5 @@ This will create into `output_path` (default: `./data/`):
 - `{yyyy}/{mm}/lr_ifs-{yyyymmdd}.json` (if `aprofiles` option enabled (default)): json file which contains, for each E-PROFILE station available and for the selected day, the corresponding IFS-LR.
 
 ## limitations
-- Due to OD definition, the computed LR is an averaged value over the **whole atmospheric column**.
 - Only **one value per day** is computed at the moment and corresponds to **00:00:00Z**.
-- When applicable (1064nm), only the **surface RH** level is considered.
+- Only **one value per column** is computed at the moment. Only the surface RH is considered for the calculation.
