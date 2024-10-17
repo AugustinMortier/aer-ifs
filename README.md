@@ -56,19 +56,19 @@ pip install .
 > [!NOTE]
 > You can also install lr-ifs with this one liner:
 > ```
-> pip install "git+ssh://git@github.com/AugustinMortier/lr-ifs.git"
+> pip install "git+ssh://git@github.com/AugustinMortier/aer-ifs.git"
 > ```
 
 ## how to use
-Compute LR for the 2024-09-26
+Compute LR and MEC for the 2024-09-26
 
 ```
 aer-ifs --date 2024-09-26
 ```
 
 This will create into `output_path` (default: `./data/`):
-- `{yyyy}/{mm}/lr_ifs-{yyyymmdd}.nc`: netcdf file which contains the computed LR.
-- `{yyyy}/{mm}/lr_ifs-{yyyymmdd}.json` (if `aprofiles` option enabled (default)): json file which contains, for each E-PROFILE station available and for the selected day, the corresponding IFS-LR.
+- `{yyyy}/{mm}/lr_ifs-{yyyymmdd}.nc`: netcdf file which contains the computed LR and MEC.
+- `{yyyy}/{mm}/lr_ifs-{yyyymmdd}.json` (if `aprofiles` option enabled (default)): json file which contains, for each E-PROFILE station available and for the selected day, the corresponding IFS-LR and IFS-MEC.
 
 ## limitations
 - Only **one value per day** is computed at the moment and corresponds to **00:00:00Z**.
