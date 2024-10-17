@@ -1,19 +1,21 @@
 # aer-IFS
 
-Compute Lidar Ratio (LR) based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts/documentation-and-support/changes-ecmwf-model) forecasts.
+Compute aerosol optical properties based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts/documentation-and-support/changes-ecmwf-model) forecasts.
+- Lidar Ratio (LR)
+- Mass to Extinction Coefficient (MEC, work in progress)
 
-Methodology:
+LR computation methodology:
 - We get the IFS forecasts data of **aerosol optical depth** forecasts for the different chemical components.
 - We get the IFS forecasts data of **relative humidity**.
 - For each aerosol species, we calculate a **LR weighted** by the relative optical depth contribution for different RH values.
 - The total LR is determined as the **sum of the weighted LR** of the different aerosols species.
   
-Individual aerosol LR are taken from the [IFS 49R1](lr_ifs/config/aerosol_ifs_49R1_20230725.nc) input configuration file. For each species, a [specific column](lr_ifs/config/species_column.json) is selected, which might correspond to a specific range bins or according to the given literature reference.
+Individual aerosol LR are taken from the [IFS 49R1](aer_ifs/config/aerosol_ifs_49R1_20230725.nc) input configuration file. For each species, a [specific column](aer_ifs/config/species_column.json) is selected, which might correspond to a specific range bins or according to the given literature reference.
  
 ## example
 
 ```
-lr-ifs --date 2024-10-15
+aer-ifs --date 2024-10-15
 ```
 
 <figure>
@@ -29,7 +31,7 @@ lr-ifs --date 2024-10-15
 
 ### 1. clone repo
 ```
-git clone https://github.com/AugustinMortier/lr-ifs.git
+git clone https://github.com/AugustinMortier/aer-ifs.git
 ```
 
 ### 2. install
@@ -53,7 +55,7 @@ pip install .
 Compute LR for the 2024-09-26
 
 ```
-lr-ifs --date 2024-09-26
+aer-ifs --date 2024-09-26
 ```
 
 This will create into `output_path` (default: `./data/`):
