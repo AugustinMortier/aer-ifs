@@ -1,4 +1,4 @@
-# LR-IFS
+# aer-IFS
 
 Compute Lidar Ratio (LR) based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts/documentation-and-support/changes-ecmwf-model) forecasts.
 
