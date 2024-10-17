@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import xarray as xr
 from typing import List
-import lr_ifs.io.ifs as ifs
+import aer_ifs.io.ifs as ifs
 
 class Store(str, Enum):
     storeA = "storeA"
@@ -101,8 +101,8 @@ def get_closest_key(ds, wav):
     return closest_string
 
 def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str]) -> dict:
-    # fill up lr_ifs dictionary with closest lr value at right wavelength
-    lr_ifs = {}
+    # fill up aer_ifs dictionary with closest lr value at right wavelength
+    aer_ifs = {}
     for station in dict_apro:
         coloc_ds = get_closest_station_values(ds_ifs, dict_apro[station].get('station_latitude'), dict_apro[station].get('station_longitude'))
         station_wavelength = int(dict_apro[station].get('l0_wavelength'))
@@ -113,7 +113,7 @@ def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str]) -> 
         # get closest rh to available keys
         key = get_closest_key(coloc_ds, station_wavelength)
         
-        lr_ifs[station] = {
+        aer_ifs[station] = {
             'data': data_dict,
             'apriori': {
                 'lr': round(float(coloc_ds[key].data), 2)
@@ -121,7 +121,7 @@ def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str]) -> 
         }
     
     # add some attributes
-    lr_ifs['attributes'] = {
+    aer_ifs['attributes'] = {
         "default": {
             "apriori": {
                 "lr": 50
@@ -129,5 +129,5 @@ def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str]) -> 
         },
         "date": datetime.today().strftime('%Y-%m-%d')
     }
-    return lr_ifs
+    return aer_ifs
     

@@ -6,9 +6,9 @@ from pathlib import Path
 from rich.progress import track
 
 
-import lr_ifs.utils as utils
-import lr_ifs.io.ifs as ifs
-import lr_ifs.io.apro as apro
+import aer_ifs.utils as utils
+import aer_ifs.io.ifs as ifs
+import aer_ifs.io.apro as apro
 
 
 app = typer.Typer()
@@ -43,20 +43,20 @@ def main(
     for _i in (track(range(1), description=f':floppy_disk: Writing netcdf file',disable=not verbose)):
         path_output = Path(output, date.strftime('%Y'), date.strftime('%m'))
         path_output.mkdir(parents=True, exist_ok=True)
-        ds_ifs.to_netcdf(Path(path_output, f"lr_ifs-{date.strftime('%Y%m%d')}.nc"), mode='w')
+        ds_ifs.to_netcdf(Path(path_output, f"aer_ifs-{date.strftime('%Y%m%d')}.nc"), mode='w')
     
     if aprofiles:
         # open aprofiles files of the day
         dict_apro = apro.read(CFG.get('vpro_path'), date, verbose)
 
-        # fill up lr_ifs dictionary with closest lr value at right wavelength
-        lr_ifs = utils.collocated_dict(ds_ifs, dict_apro, CFG['vars'] + ['relative_humidity_pl'])
+        # fill up aer_ifs dictionary with closest lr value at right wavelength
+        aer_ifs = utils.collocated_dict(ds_ifs, dict_apro, CFG['vars'] + ['relative_humidity_pl'])
         
         # write file
         for _i in (track(range(1), description=f':floppy_disk: Writing json file',disable=not verbose)):
-            file_path = Path(path_output , f"lr_ifs-{date.strftime('%Y%m%d')}.json")
+            file_path = Path(path_output , f"aer_ifs-{date.strftime('%Y%m%d')}.json")
             with file_path.open('w') as json_file:
-                json.dump(lr_ifs, json_file, indent=4)
+                json.dump(aer_ifs, json_file, indent=4)
 
 if __name__ == "__main__":
     app()
