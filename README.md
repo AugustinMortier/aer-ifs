@@ -1,6 +1,6 @@
 # aer-IFS
 
-Compute aerosol optical properties based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts/documentation-and-support/changes-ecmwf-model) forecasts.
+Compute aerosol optical properties maps based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts/documentation-and-support/changes-ecmwf-model) forecasts.
 - Lidar Ratio (LR)
 - Mass to Extinction Coefficient (MEC, work in progress)
 
