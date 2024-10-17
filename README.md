@@ -13,15 +13,15 @@ Individual aerosol LR are taken from the [IFS 49R1](lr_ifs/config/aerosol_ifs_49
 ## example
 
 ```
-lr-ifs --date 2024-10-05
+lr-ifs --date 2024-10-15
 ```
 
 <figure id="examples">
   <div id="panel" float="left">
-    <img src="examples/lr-1064nm-rh30-20241005.png" width="49%">
-    <img src="examples/lr-1064nm-rh80-20241005.png" width="49%">
+    <img src="examples/lr-1064nm-rh30-20241015.png" width="49%">
+    <img src="examples/lr-1064nm-rh80-20241015.png" width="49%">
   </div>
-  <figcaption>Fig 1: IFS LR - 2024-10-05 - 1064 nm</figcaption>
+  <figcaption>Fig 1: IFS LR - 2024-10-15 - 1064 nm</figcaption>
 </figure>
 
 
