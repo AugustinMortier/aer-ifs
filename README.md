@@ -8,7 +8,7 @@ Methodology:
 - For each aerosol species, we calculate a **LR weighted** by the relative optical depth contribution for different RH values.
 - The total LR is determined as the **sum of the weighted LR** of the different aerosols species.
   
-Individual aerosol LR are taken from the [IFS 49R1](lr_ifs/config/aerosol_ifs_49R1_20230725.nc) input configuration file. For each species, a [specific column](lr_ifs/config/species_column.json) is selected, which might correspond to a specific range bins or literature reference.
+Individual aerosol LR are taken from the [IFS 49R1](lr_ifs/config/aerosol_ifs_49R1_20230725.nc) input configuration file. For each species, a [specific column](lr_ifs/config/species_column.json) is selected, which might correspond to a specific range bins or according to the given literature reference.
  
 ## example
 
