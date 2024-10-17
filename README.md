@@ -17,7 +17,7 @@ Individual aerosol LR are taken from the [IFS 49R1](aer_ifs/config/aerosol_ifs_4
 ```
 aer-ifs --date 2024-10-15
 ```
-
+### LR
 <figure>
   <div float="left">
     <img src="examples/lr-1064nm-rh30-20241015.png" width="49%">
@@ -26,6 +26,14 @@ aer-ifs --date 2024-10-15
   <figcaption>Fig 1: IFS LR - 2024-10-15 - 1064 nm</figcaption>
 </figure>
 
+### MEC
+<figure>
+  <div float="left">
+    <img src="examples/mec-1064nm-rh30-20241015.png" width="49%">
+    <img src="examples/mec-1064nm-rh80-20241015.png" width="49%">
+  </div>
+  <figcaption>Fig 1: IFS MEC - 2024-10-15 - 1064 nm</figcaption>
+</figure>
 
 ## get started
 

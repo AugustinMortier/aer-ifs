@@ -38,7 +38,11 @@ def main(
     # compute lr
     for _i in (track(range(1), description=f':computer: Compute LR from IFS data',disable=not verbose)):
         ds_ifs = utils.compute_lr(ds_ifs, CFG['vars'], CFG['wavelengths'], CFG['rhs'])
-
+    
+    # compute mec
+    for _i in (track(range(1), description=f':computer: Compute MEC from IFS data',disable=not verbose)):
+        ds_ifs = utils.compute_mec(ds_ifs, CFG['vars'], CFG['wavelengths'], CFG['rhs'])
+    
     # write file
     for _i in (track(range(1), description=f':floppy_disk: Writing netcdf file',disable=not verbose)):
         path_output = Path(output, date.strftime('%Y'), date.strftime('%m'))

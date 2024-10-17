@@ -80,14 +80,55 @@ def compute_lr(ds: xr.DataArray, vars: List[str], wavs: List[int], rhs: List[int
                 ds = ds.drop_vars(f'lr-{species}-{wav}-{rh}')
     return ds
 
+def ifs_species_mec(species, wav, rh) -> float:
+    # return mec for a given species at a given wavelength and rh
+    species_column = get_species_column()
+    aer_properties = ifs.get_aer_properties()
+    i_closest_wav = abs(aer_properties.wavelength.data * 1e9 - wav).argmin()
+    i_closest_rh = abs(aer_properties.relative_humidity.data * 1e4 - rh).argmin()
+
+    type = species_column[species]['type']
+    column = species_column[species]['column']
+    if type == 'hydrophilic':
+        lr = aer_properties[f'mass_ext_{type}'][column - 1][i_closest_rh][i_closest_wav].data
+    elif type == 'hydrophobic':
+        lr = aer_properties[f'mass_ext_{type}'][column - 1][i_closest_wav].data
+    return float(lr)
+
+def compute_mec(ds: xr.DataArray, vars: List[str], wavs: List[int], rhs: List[int]) -> xr.DataArray:
+    
+    for var in vars:
+        ds[f'{var}/aod550'] = ds[var] / ds['aod550']
+
+    for wav in wavs:
+        for rh in rhs:
+            key_vars = []
+            for var in vars:
+                species = var[:2]
+                ds[f'mec-{species}-{wav}-{rh}'] = ds[f'{var}/aod550'] * ifs_species_mec(species, wav, rh)
+                key_vars.append(f'mec-{species}-{wav}-{rh}')
+            ds[f'mec-{wav}-{rh}'] = sum(ds[key_var] for key_var in key_vars)
+            ds[f'mec-{wav}-{rh}'] = ds[f'mec-{wav}-{rh}'].assign_attrs({
+                'long_name': f'MEC at {wav}nm and RH: {rh}%',
+                'units': 'm2 kg-1'
+            })
+
+    # clean up vars
+    for var in vars:
+        species = var[:2]
+        ds = ds.drop_vars(f'{var}/aod550')
+        for wav in wavs:
+            for rh in rhs:
+                ds = ds.drop_vars(f'mec-{species}-{wav}-{rh}')
+    return ds
 
 def get_closest_station_values(ds: xr.DataArray, station_lat: float, station_lon: float) -> xr.DataArray:
     # Use the sel method with the nearest option to get the closest values
     coloc_ds = ds.sel(latitude=station_lat, longitude=station_lon, method='nearest')
     return coloc_ds
 
-def get_closest_key(ds, wav):
-    # list variables matching wav
+def get_closest_key(ds, wav, par):
+    # list variables matching wav (use lr, but could use mec instead)
     variables = [var for var in list(ds.variables) if var.startswith(f'lr-{wav}')]
     # relative humidity
     rh_value = float(ds['relative_humidity_pl'].data)
@@ -97,8 +138,8 @@ def get_closest_key(ds, wav):
     closest_index = min(range(len(rh_values)), key=lambda i: abs(rh_values[i] - rh_value))
     # Step 3: Get the corresponding string
     closest_string = variables[closest_index]
-    
-    return closest_string
+    # Step 4: Remove lr part 
+    return closest_string.split('lr-')[1]
 
 def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str]) -> dict:
     # fill up aer_ifs dictionary with closest lr value at right wavelength
@@ -116,7 +157,8 @@ def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str]) -> 
         aer_ifs[station] = {
             'data': data_dict,
             'apriori': {
-                'lr': round(float(coloc_ds[key].data), 2)
+                'lr': round(float(coloc_ds[f'lr-{key}'].data), 2),
+                'mec': round(float(coloc_ds[f'mec-{key}'].data), 2),
             }
         }
     
@@ -124,7 +166,8 @@ def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str]) -> 
     aer_ifs['attributes'] = {
         "default": {
             "apriori": {
-                "lr": 50
+                "lr": 50,
+                "mec": None
             }
         },
         "date": datetime.today().strftime('%Y-%m-%d')
