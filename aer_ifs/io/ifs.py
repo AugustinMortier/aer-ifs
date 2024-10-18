@@ -32,6 +32,6 @@ def read_rh(path: Path, datetime: datetime) -> xr.Dataset:
     return ds
 
 def get_aer_properties() -> xr.Dataset:
-    path = Path('aer_ifs/config/aerosol_ifs_49R1_20230725.nc')
-    ds = xr.open_dataset(path)
+    f = open(Path(Path(__file__).parent,'config','aerosol_ifs_49R1_20230725.nc'))
+    ds = xr.open_dataset(f)
     return ds
