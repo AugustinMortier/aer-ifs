@@ -23,7 +23,7 @@ aer-ifs --date 2024-10-15
     <img src="examples/lr-1064nm-rh30-20241015.png" width="49%">
     <img src="examples/lr-1064nm-rh80-20241015.png" width="49%">
   </div>
-  <figcaption>Fig 1: IFS LR - 2024-10-15 - 1064 nm</figcaption>
+  <figcaption>IFS LR - 2024-10-15 - 1064 nm</figcaption>
 </figure>
 
 ### MEC
@@ -32,7 +32,7 @@ aer-ifs --date 2024-10-15
     <img src="examples/mec-1064nm-rh30-20241015.png" width="49%">
     <img src="examples/mec-1064nm-rh80-20241015.png" width="49%">
   </div>
-  <figcaption>Fig 1: IFS MEC - 2024-10-15 - 1064 nm</figcaption>
+  <figcaption>IFS MEC - 2024-10-15 - 1064 nm</figcaption>
 </figure>
 
 ## get started

@@ -127,13 +127,13 @@ def get_closest_station_values(ds: xr.DataArray, station_lat: float, station_lon
     coloc_ds = ds.sel(latitude=station_lat, longitude=station_lon, method='nearest')
     return coloc_ds
 
-def get_closest_key(ds, wav, par):
+def get_closest_key(ds, wav):
     # list variables matching wav (use lr, but could use mec instead)
     variables = [var for var in list(ds.variables) if var.startswith(f'lr-{wav}')]
     # relative humidity
     rh_value = float(ds['relative_humidity_pl'].data)
     # Step 1: Extract RH values by splitting the string
-    rh_values = [int(s) for s in variables]
+    rh_values = [int(s.split('-')[2]) for s in variables]
     # Step 2: Find the index of the closest RH value
     closest_index = min(range(len(rh_values)), key=lambda i: abs(rh_values[i] - rh_value))
     # Step 3: Get the corresponding string
