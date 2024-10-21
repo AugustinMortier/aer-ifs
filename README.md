@@ -2,7 +2,7 @@
 
 Compute aerosol optical properties maps based on [ECMWF IFS](https://www.ecmwf.int/en/forecasts/documentation-and-support/changes-ecmwf-model) forecasts.
 - Lidar Ratio (LR)
-- Mass to Extinction Coefficient (MEC, work in progress)
+- Mass to Extinction Coefficient (MEC)
 
 LR computation methodology:
 - We get the IFS forecasts data of **aerosol optical depth** forecasts for the different chemical components.
