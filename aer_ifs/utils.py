@@ -156,19 +156,15 @@ def collocated_dict(ds_ifs: xr.DataArray , dict_apro: dict, vars: List[str]) -> 
         
         aer_ifs[station] = {
             'data': data_dict,
-            'apriori': {
-                'lr': round(float(coloc_ds[f'lr-{key}'].data), 2),
-                'mec': round(float(coloc_ds[f'mec-{key}'].data), 2),
-            }
+            'lr': round(float(coloc_ds[f'lr-{key}'].data), 2),
+            'mec': round(float(coloc_ds[f'mec-{key}'].data), 2),
         }
     
     # add some attributes
     aer_ifs['attributes'] = {
         "default": {
-            "apriori": {
-                "lr": 50,
-                "mec": None
-            }
+            "lr": 50,
+            "mec": None
         },
         "date": datetime.today().strftime('%Y-%m-%d')
     }
