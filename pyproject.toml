@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aer-ifs"
-version = "0.5.4"
+version = "0.5.5"
 description = "Lidar Ratio computation from ECMWF IFS model data"
 authors = ["augustinm <augustinm@met.no>"]
 readme = "README.md"

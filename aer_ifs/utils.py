@@ -105,12 +105,12 @@ def compute_mec(ds: xr.DataArray, vars: List[str], wavs: List[int], rhs: List[in
             key_vars = []
             for var in vars:
                 species = var[:2]
-                ds[f'mec-{species}-{wav}-{rh}'] = ds[f'{var}/aod550'] * ifs_species_mec(species, wav, rh)
+                ds[f'mec-{species}-{wav}-{rh}'] = ds[f'{var}/aod550'] * ifs_species_mec(species, wav, rh) * 1e-3
                 key_vars.append(f'mec-{species}-{wav}-{rh}')
             ds[f'mec-{wav}-{rh}'] = sum(ds[key_var] for key_var in key_vars)
             ds[f'mec-{wav}-{rh}'] = ds[f'mec-{wav}-{rh}'].assign_attrs({
                 'long_name': f'MEC at {wav}nm and RH: {rh}%',
-                'units': 'm2 kg-1'
+                'units': 'm2 g-1'
             })
 
     # clean up vars
