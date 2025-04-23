@@ -1,19 +1,23 @@
-[tool.poetry]
+[project]
 name = "aer-ifs"
 version = "0.6.0"
 description = "Lidar Ratio computation from ECMWF IFS model data"
-authors = ["augustinm <augustinm@met.no>"]
+authors = [
+  {name = "Augustin Mortier", email = "augustinm@met.no"},
+]
 readme = "README.md"
+requires-python = ">=3.10,<4.0"
 
-[tool.poetry.dependencies]
-python = "^3.10"
-xarray = "^2024.9.0"
-typer = "^0.12.5"
-netcdf4 = "^1.7.1.post2"
-matplotlib = "^3.9.2"
-dask = "^2024.9.0"
-rich = "^13.8.1"
-scipy = "^1.14.1"
+
+dependencies = [
+    "xarray ~= 2024.9",
+    "typer ~= 0.12.5",
+    "netcdf4 ~= 1.7",
+    "matplotlib ~= 3.9",
+    "dask ~= 2024.9",
+    "rich ~= 13.8",
+    "scipy ~= 1.14",
+]
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.5"
@@ -23,5 +27,5 @@ cartopy = "^0.23.0"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poetry.scripts]
-aer-ifs = {callable = "aer_ifs.main:app"}
+[project.scripts]
+aer-ifs = "aer_ifs.main:app"
