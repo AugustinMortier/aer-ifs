@@ -8,7 +8,6 @@ def read_od(path: Path, filename: str, datetime: datetime) -> xr.Dataset:
     # the file for dd-mm-yyyy contains forecast for dd+1-mm-yyyy
     datetime = datetime - timedelta(days=1)
     yyyymmdd = datetime.strftime("%Y%m%d")
-    yyyy = datetime.strftime("%Y")
     vars = [
         "amaod550",
         "bcaod550",
@@ -19,7 +18,7 @@ def read_od(path: Path, filename: str, datetime: datetime) -> xr.Dataset:
         "suaod550",
         "aod550",
     ]
-    ifs_file = Path(path, yyyy, filename.replace("YYYYMMDD", yyyymmdd))
+    ifs_file = Path(path, filename.replace("YYYYMMDD", yyyymmdd))
     # select first time index: 00:00:00Z
     ds = xr.open_dataset(ifs_file)[vars].isel(time=0).load()
     return ds
