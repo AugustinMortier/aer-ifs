@@ -1,15 +1,14 @@
-import typer
-from typing_extensions import Annotated
-from datetime import datetime
 import json
+from datetime import datetime
 from pathlib import Path
+
+import typer
 from rich.progress import track
+from typing_extensions import Annotated
 
-
-import aer_ifs.utils as utils
-import aer_ifs.io.ifs as ifs
 import aer_ifs.io.apro as apro
-
+import aer_ifs.io.ifs as ifs
+import aer_ifs.utils as utils
 
 app = typer.Typer()
 
@@ -24,16 +23,13 @@ def main(
     output: Annotated[Path, typer.Option(help="output path")] = "./data/",
     verbose: Annotated[bool, typer.Option(help="verbose mode")] = True,
 ):
-
     CFG = utils.get_config(store)
 
     # read ifs od-speciated model
     for _i in track(
         range(1), description=f":robot: Reading IFS OD data", disable=not verbose
     ):
-        od_ifs = ifs.read_od(
-            CFG.get("paths").get("ifs_od"), CFG.get("filenames").get("ifs_od"), date
-        )
+        od_ifs = ifs.read_od(date, CFG)
 
     # read ifs rh
     for _i in track(
