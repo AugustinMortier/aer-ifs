@@ -1,9 +1,11 @@
-from enum import Enum
-from datetime import datetime
 import json
+from datetime import datetime
+from enum import Enum
 from pathlib import Path
-import xarray as xr
 from typing import List
+
+import xarray as xr
+
 import aer_ifs.io.ifs as ifs
 
 
@@ -21,7 +23,8 @@ def get_config(store: Store) -> dict:
             "vpro": f"/lustre/{store}/project/fou/kl/v-profiles",
         },
         "filenames": {
-            "ifs_od": f"YYYYMMDD_cIFS-12UTC_o-suite_surface.nc",
+            "ifs_od_00UTC": f"YYYYMMDD_cIFS-00UTC_o-suite_surface.nc",
+            "ifs_od_12UTC": f"YYYYMMDD_cIFS-12UTC_o-suite_surface.nc",
             "ifs_rh_metproduction": f"ec_atmo_0_1deg_YYYYMMDDT180000Z_pl.nc",
             "ifs_rh_archive": f"YYYYMMDD_cIFS-00UTC_4vpro_pl1000.nc",
         },
@@ -78,7 +81,6 @@ def ifs_species_lr(species, wav, rh) -> float:
 def compute_lr(
     ds: xr.DataArray, vars: List[str], wavs: List[int], rhs: List[int]
 ) -> xr.DataArray:
-
     for var in vars:
         ds[f"{var}/aod550"] = ds[var] / ds["aod550"]
 
@@ -127,7 +129,6 @@ def ifs_species_mec(species, wav, rh) -> float:
 def compute_mec(
     ds: xr.DataArray, vars: List[str], wavs: List[int], rhs: List[int]
 ) -> xr.DataArray:
-
     for var in vars:
         ds[f"{var}/aod550"] = ds[var] / ds["aod550"]
 

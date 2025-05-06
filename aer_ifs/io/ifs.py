@@ -4,11 +4,21 @@ from pathlib import Path
 import xarray as xr
 
 
-def read_od(path: Path, filename: str, datetime: datetime) -> xr.Dataset:
-    # the file for dd-mm-yyyy contains forecast for dd+1-mm-yyyy
-    datetime = datetime - timedelta(days=1)
+def final_path(datetime: datetime, root: str, filename: str) -> Path:
     yyyymmdd = datetime.strftime("%Y%m%d")
     yyyy = datetime.strftime("%Y")
+    return Path(root, yyyy, filename.replace("YYYYMMDD", yyyymmdd))
+
+
+def read_od(datetime: datetime, CFG: dict) -> xr.Dataset:
+    root = CFG.get("paths").get("ifs_od")
+    filename00 = CFG.get("filenames").get("ifs_od_00UTC")
+    filename12 = CFG.get("filenames").get("ifs_od_12UTC")
+    ifs_file = final_path(datetime, root, filename00)
+    if not ifs_file.exists():
+        ifs_file = final_path(datetime - timedelta(days=1), root, filename12)
+
+    print(f"using ifs file {ifs_file}")
     vars = [
         "amaod550",
         "bcaod550",
@@ -19,7 +29,6 @@ def read_od(path: Path, filename: str, datetime: datetime) -> xr.Dataset:
         "suaod550",
         "aod550",
     ]
-    ifs_file = Path(path, yyyy, filename.replace("YYYYMMDD", yyyymmdd))
     # select first time index: 00:00:00Z
     ds = xr.open_dataset(ifs_file)[vars].isel(time=0).load()
     return ds
