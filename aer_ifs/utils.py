@@ -23,7 +23,7 @@ def get_config(store: Store) -> dict:
             "vpro": f"/lustre/{store}/project/fou/kl/v-profiles",
         },
         "filenames": {
-            "ifs_od_00UTC": f"YYYYMMDD_cIFS-00UTC_o-suite_surface.nc",
+            "ifs_od_00UTC": f"YYYYMMDD_cIFS-00UTC_4vpro_surface.nc",
             "ifs_od_12UTC": f"YYYYMMDD_cIFS-12UTC_o-suite_surface.nc",
             "ifs_rh_metproduction": f"ec_atmo_0_1deg_YYYYMMDDT180000Z_pl.nc",
             "ifs_rh_archive": f"YYYYMMDD_cIFS-00UTC_4vpro_pl1000.nc",
