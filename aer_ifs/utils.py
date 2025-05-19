@@ -18,7 +18,7 @@ def get_config(store: Store) -> dict:
             "ifs_od": f"/lustre/{store}/project/fou/kl/CAMS2_35b/cifs-model",
             "ifs_rh_metproduction": f"/lustre/{store}/project/metproduction/products/ecmwf/nc",
             "ifs_rh_archive": f"/lustre/{store}/project/fou/kl/CAMS2_35b/cifs-model",
-            "vpro": f"/lustre/{store}/project/fou/kl/v-profiles",
+            "epro": f"/lustre/{store}/project/fou/kl/ceilometer/e-profile",
         },
         "filenames": {
             "ifs_od": f"YYYYMMDD_cIFS-12UTC_o-suite_surface.nc",
@@ -34,7 +34,7 @@ def get_config(store: Store) -> dict:
             "ssaod550",
             "suaod550",
         ],
-        "wavelengths": [1064, 905, 532],
+        "wavelengths": [1064, 910, 905, 532],
         "rhs": [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
     }
 
@@ -79,30 +79,43 @@ def compute_lr(
     ds: xr.DataArray, vars: List[str], wavs: List[int], rhs: List[int]
 ) -> xr.DataArray:
 
+    # Create a new DataArray for lr with dimensions 'wav' and 'rh'
+    lr = xr.DataArray(
+        dims=("wav", "rh", "species", "latitude", "longitude"),
+        coords={
+            "wav": wavs,
+            "rh": rhs,
+            "species": [var[:2] for var in vars],
+            "latitude": ds["latitude"],
+            "longitude": ds["longitude"],
+        },
+        attrs={"long_name": "Lidar Ratio", "units": "sr"},
+    )
+
     for var in vars:
         ds[f"{var}/aod550"] = ds[var] / ds["aod550"]
 
     for wav in wavs:
         for rh in rhs:
-            key_vars = []
             for var in vars:
-                species = var[:2]
-                ds[f"lr-{species}-{wav}-{rh}"] = ds[f"{var}/aod550"] * ifs_species_lr(
-                    species, wav, rh
-                )
-                key_vars.append(f"lr-{species}-{wav}-{rh}")
-            ds[f"lr-{wav}-{rh}"] = sum(ds[key_var] for key_var in key_vars)
-            ds[f"lr-{wav}-{rh}"] = ds[f"lr-{wav}-{rh}"].assign_attrs(
-                {"long_name": f"Lidar Ratio at {wav}nm and RH: {rh}%", "units": "sr"}
-            )
+                spec = var[:2]
+                lr.loc[dict(wav=wav, rh=rh, species=spec)] = ds[
+                    f"{var}/aod550"
+                ] * ifs_species_lr(spec, wav, rh)
 
-    # clean up vars
+    # Sum across species to get the total lidar ratio for each wav and rh
+    lr_total = lr.sum(dim="species")
+
+    # Assign attributes to the total lidar ratio
+    lr_total = lr_total.assign_attrs({"long_name": "Total Lidar Ratio", "units": "sr"})
+
+    # Clean up vars
     for var in vars:
-        species = var[:2]
         ds = ds.drop_vars(f"{var}/aod550")
-        for wav in wavs:
-            for rh in rhs:
-                ds = ds.drop_vars(f"lr-{species}-{wav}-{rh}")
+
+    # Add the computed lr_total to the dataset
+    ds["lr"] = lr_total
+
     return ds
 
 
@@ -128,30 +141,45 @@ def compute_mec(
     ds: xr.DataArray, vars: List[str], wavs: List[int], rhs: List[int]
 ) -> xr.DataArray:
 
+    # Create a new DataArray for mec with dimensions 'wav', 'rh', and 'species'
+    mec = xr.DataArray(
+        dims=("wav", "rh", "species", "latitude", "longitude"),
+        coords={
+            "wav": wavs,
+            "rh": rhs,
+            "species": [var[:2] for var in vars],
+            "latitude": ds["latitude"],
+            "longitude": ds["longitude"],
+        },
+        attrs={"long_name": "Mass Extinction Coefficient", "units": "m2 kg-1"},
+    )
+
     for var in vars:
         ds[f"{var}/aod550"] = ds[var] / ds["aod550"]
 
     for wav in wavs:
         for rh in rhs:
-            key_vars = []
             for var in vars:
                 species = var[:2]
-                ds[f"mec-{species}-{wav}-{rh}"] = ds[f"{var}/aod550"] * ifs_species_mec(
-                    species, wav, rh
-                )
-                key_vars.append(f"mec-{species}-{wav}-{rh}")
-            ds[f"mec-{wav}-{rh}"] = sum(ds[key_var] for key_var in key_vars)
-            ds[f"mec-{wav}-{rh}"] = ds[f"mec-{wav}-{rh}"].assign_attrs(
-                {"long_name": f"MEC at {wav}nm and RH: {rh}%", "units": "m2 kg-1"}
-            )
+                mec.loc[dict(wav=wav, rh=rh, species=species)] = ds[
+                    f"{var}/aod550"
+                ] * ifs_species_mec(species, wav, rh)
 
-    # clean up vars
+    # Sum across species to get the total MEC for each wav and rh
+    mec_total = mec.sum(dim="species")
+
+    # Assign attributes to the total MEC
+    mec_total = mec_total.assign_attrs(
+        {"long_name": "Total Mass Extinction Coefficient", "units": "m2 kg-1"}
+    )
+
+    # Clean up vars
     for var in vars:
-        species = var[:2]
         ds = ds.drop_vars(f"{var}/aod550")
-        for wav in wavs:
-            for rh in rhs:
-                ds = ds.drop_vars(f"mec-{species}-{wav}-{rh}")
+
+    # Add the computed mec_total to the dataset
+    ds["mec"] = mec_total
+
     return ds
 
 
@@ -163,21 +191,8 @@ def get_closest_station_values(
     return coloc_ds
 
 
-def get_closest_key(ds, wav):
-    # list variables matching wav (use lr, but could use mec instead)
-    variables = [var for var in list(ds.variables) if var.startswith(f"lr-{wav}")]
-    # relative humidity
-    rh_value = float(ds["relative_humidity_pl"].data)
-    # Step 1: Extract RH values by splitting the string
-    rh_values = [int(s.split("-")[2]) for s in variables]
-    # Step 2: Find the index of the closest RH value
-    closest_index = min(
-        range(len(rh_values)), key=lambda i: abs(rh_values[i] - rh_value)
-    )
-    # Step 3: Get the corresponding string
-    closest_string = variables[closest_index]
-    # Step 4: Remove lr part
-    return closest_string.split("lr-")[1]
+def find_closest_index(arr, target):
+    return min(range(len(arr)), key=lambda i: abs(arr[i] - target))
 
 
 def collocated_dict(ds_ifs: xr.DataArray, dict_apro: dict, vars: List[str]) -> dict:
@@ -194,13 +209,19 @@ def collocated_dict(ds_ifs: xr.DataArray, dict_apro: dict, vars: List[str]) -> d
         for var in vars:
             data_dict[var] = round(float(coloc_ds[var].data), 4)
 
-        # get closest rh to available keys
-        key = get_closest_key(coloc_ds, station_wavelength)
+        # get index for wavelength
+        wavs = coloc_ds["wav"].data
+        iwav = wavs.tolist().index(station_wavelength)
+
+        # get index for closest rh
+        rhs = coloc_ds["rh"].data
+        rh = coloc_ds["relative_humidity_pl"].data
+        irh = find_closest_index(rhs, rh)
 
         aer_ifs[station] = {
             "data": data_dict,
-            "lr": round(float(coloc_ds[f"lr-{key}"].data), 2),
-            "mec": round(float(coloc_ds[f"mec-{key}"].data), 2),
+            "lr": round(float(coloc_ds["lr"][iwav][irh].data), 2),
+            "mec": round(float(coloc_ds["mec"][iwav][irh].data), 2),
         }
 
     # add some attributes
