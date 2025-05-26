@@ -161,16 +161,16 @@ def compute_mec(
         for rh in rhs:
             for var in vars:
                 species = var[:2]
-                mec.loc[dict(wav=wav, rh=rh, species=species)] = ds[
-                    f"{var}/aod550"
-                ] * ifs_species_mec(species, wav, rh)
+                mec.loc[dict(wav=wav, rh=rh, species=species)] = (
+                    ds[f"{var}/aod550"] * ifs_species_mec(species, wav, rh) * 1e-3
+                )
 
     # Sum across species to get the total MEC for each wav and rh
     mec_total = mec.sum(dim="species")
 
     # Assign attributes to the total MEC
     mec_total = mec_total.assign_attrs(
-        {"long_name": "Total Mass Extinction Coefficient", "units": "m2 kg-1"}
+        {"long_name": "Total Mass Extinction Coefficient", "units": "m2 g-1"}
     )
 
     # Clean up vars
