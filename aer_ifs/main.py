@@ -68,7 +68,7 @@ def main(
 
     if aprofiles:
         # open aprofiles files of the day
-        dict_apro = apro.read(CFG.get("paths").get("vpro"), date, verbose)
+        dict_apro = apro.read(CFG.get("paths").get("epro"), date, verbose)
 
         # fill up aer_ifs dictionary with closest lr value at right wavelength
         aer_ifs = utils.collocated_dict(
