@@ -16,7 +16,7 @@ def read(path: Path, datetime: datetime, verbose) -> dict:
             datetime.strftime("%m"),
             datetime.strftime("%d"),
         ).iterdir()
-        if f.is_file()
+        if f.is_file() and "L2_" in f.name
     ]
 
     vars = ["station_latitude", "station_longitude", "l0_wavelength"]
