@@ -56,18 +56,18 @@ def read_rh(datetime: datetime, CFG: dict) -> xr.Dataset:
         ds = ds.sortby("longitude")
         # extract value at the last pressure level (close to the ground)
         ds = ds.isel(pressure=len(ds.pressure) - 1).drop_vars(["time", "pressure"])
-    except FileNotFoundError:
-        print(f"File {ifs_file} not found. Trying to read the archive file instead.")
-        path = CFG.get("paths").get("ifs_rh_archive")
-        filename = CFG.get("filenames").get("ifs_rh_archive")
-        # the file for dd-mm-yyyy contains forecast for dd-mm-yyyy: CHECK THAT
-        datetime_file = datetime
-        yyyymmdd = datetime_file.strftime("%Y%m%d")
-        yyyy = datetime_file.strftime("%Y")
+    except (Exception, FileNotFoundError) as e:
+        print(f"Could not use the metproduction file ({e}). Trying to read the archive file instead.")
+        root = CFG.get("paths").get("ifs_rh_archive")
+        filename00 = CFG.get("filenames").get("ifs_rh_archive_00UTC")
+        filename12 = CFG.get("filenames").get("ifs_rh_archive_12UTC")
+        ifsrh_file = final_path(datetime, root, filename00)
+        if not ifsrh_file.exists():
+            ifsrh_file = final_path(datetime - timedelta(days=1), root, filename12)
+        print(f"Using ifs file {ifsrh_file}")
         vars = ["r"]
-        ifs_file = Path(path, yyyy, filename.replace("YYYYMMDD", yyyymmdd))
         # select first time index: 00:00:00Z: CHECK THAT
-        ds = xr.open_dataset(ifs_file)[vars].isel(time=0).load()
+        ds = xr.open_dataset(ifsrh_file)[vars].isel(time=0).load()
         # the longitude is already given in 0 360
         # drop time dimension
         ds = ds.drop_vars(["time"]).rename({"r": "relative_humidity_pl"})
