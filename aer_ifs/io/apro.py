@@ -23,7 +23,11 @@ def read(path: Path, datetime: datetime, verbose) -> dict:
     for file in track(
         files, description=f":satellite: Reading L2 e-profile data", disable=not verbose
     ):
-        ds = xr.open_dataset(file, chunks=-1)[vars].load()
+        try:
+            ds = xr.open_dataset(file, chunks=-1)[vars].load()
+        except (OSError, Exception) as e:
+            print(f"Error with {file}: {e}")
+            continue
         station_id = f"{ds.attrs['wigos_station_id']}-{ds.attrs['instrument_id']}"
         dict[station_id] = ds.attrs
         dict[station_id]["station_latitude"] = ds.station_latitude.data
