@@ -16,14 +16,18 @@ def read(path: Path, datetime: datetime, verbose) -> dict:
             datetime.strftime("%m"),
             datetime.strftime("%d"),
         ).iterdir()
-        if f.is_file()
+        if f.is_file() and "L2_" in f.name
     ]
 
     vars = ["station_latitude", "station_longitude", "l0_wavelength"]
     for file in track(
         files, description=f":satellite: Reading L2 e-profile data", disable=not verbose
     ):
-        ds = xr.open_dataset(file, chunks=-1)[vars].load()
+        try:
+            ds = xr.open_dataset(file, chunks=-1)[vars].load()
+        except (OSError, Exception) as e:
+            print(f"Error with {file}: {e}")
+            continue
         station_id = f"{ds.attrs['wigos_station_id']}-{ds.attrs['instrument_id']}"
         dict[station_id] = ds.attrs
         dict[station_id]["station_latitude"] = ds.station_latitude.data

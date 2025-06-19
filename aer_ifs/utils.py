@@ -1,9 +1,11 @@
-from enum import Enum
-from datetime import datetime
 import json
+from datetime import datetime
+from enum import Enum
 from pathlib import Path
-import xarray as xr
 from typing import List
+
+import xarray as xr
+
 import aer_ifs.io.ifs as ifs
 
 
@@ -21,9 +23,12 @@ def get_config(store: Store) -> dict:
             "epro": f"/lustre/{store}/project/fou/kl/ceilometer/e-profile",
         },
         "filenames": {
-            "ifs_od": f"YYYYMMDD_cIFS-12UTC_o-suite_surface.nc",
+            "ifs_od_00UTC": f"YYYYMMDD_cIFS-00UTC_4vpro_surface.nc",
+            "ifs_od_12UTC": f"YYYYMMDD_cIFS-12UTC_o-suite_surface.nc",
             "ifs_rh_metproduction": f"ec_atmo_0_1deg_YYYYMMDDT180000Z_pl.nc",
-            "ifs_rh_archive": f"YYYYMMDD_cIFS-00UTC_4vpro_pl1000.nc",
+            #"ifs_rh_archive": f"YYYYMMDD_cIFS-00UTC_4vpro_pl1000.nc",
+            "ifs_rh_archive_00UTC": f"YYYYMMDD_cIFS-00UTC_4vpro_pl1000.nc",
+            "ifs_rh_archive_12UTC": f"YYYYMMDD_cIFS-12UTC_4vpro_pl1000.nc",
         },
         "vars": [
             "amaod550",
