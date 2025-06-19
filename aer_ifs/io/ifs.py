@@ -29,8 +29,14 @@ def read_od(datetime: datetime, CFG: dict) -> xr.Dataset:
         "suaod550",
         "aod550",
     ]
-    # select first time index: 00:00:00Z
-    ds = xr.open_dataset(ifs_file)[vars].isel(time=0).load()
+    # daily average and date selection
+    ds = (
+        xr.open_dataset(ifs_file)[vars]
+        .resample(time="D")
+        .mean()
+        .sel(time=datetime)
+        .load()
+    )
     return ds
 
 
@@ -48,8 +54,14 @@ def read_rh(datetime: datetime, CFG: dict) -> xr.Dataset:
         yyyy = datetime_file.strftime("%Y")
         vars = ["relative_humidity_pl"]
         ifs_file = Path(path, filename.replace("YYYYMMDD", yyyymmdd))
-        # select third time index: 00:00:00Z (the two first being 18, 21)
-        ds = xr.open_dataset(ifs_file)[vars].isel(time=2).load()
+        # daily average and date selection
+        ds = (
+            xr.open_dataset(ifs_file)[vars]
+            .resample(time="D")
+            .mean()
+            .sel(time=datetime)
+            .load()
+        )
         # convert longitude from -180 180 to 0 360
         ds = ds.assign_coords(longitude=((ds.longitude + 360) % 360))
         # sort longitude
@@ -57,7 +69,9 @@ def read_rh(datetime: datetime, CFG: dict) -> xr.Dataset:
         # extract value at the last pressure level (close to the ground)
         ds = ds.isel(pressure=len(ds.pressure) - 1).drop_vars(["time", "pressure"])
     except (Exception, FileNotFoundError) as e:
-        print(f"Could not use the metproduction file ({e}). Trying to read the archive file instead.")
+        print(
+            f"Could not use the metproduction file ({e}). Trying to read the archive file instead."
+        )
         root = CFG.get("paths").get("ifs_rh_archive")
         filename00 = CFG.get("filenames").get("ifs_rh_archive_00UTC")
         filename12 = CFG.get("filenames").get("ifs_rh_archive_12UTC")
@@ -66,8 +80,14 @@ def read_rh(datetime: datetime, CFG: dict) -> xr.Dataset:
             ifsrh_file = final_path(datetime - timedelta(days=1), root, filename12)
         print(f"Using ifs file {ifsrh_file}")
         vars = ["r"]
-        # select first time index: 00:00:00Z: CHECK THAT
-        ds = xr.open_dataset(ifsrh_file)[vars].isel(time=0).load()
+        # daily average and date selection
+        ds = (
+            xr.open_dataset(ifsrh_file)[vars]
+            .resample(time="D")
+            .mean()
+            .sel(time=datetime)
+            .load()
+        )
         # the longitude is already given in 0 360
         # drop time dimension
         ds = ds.drop_vars(["time"]).rename({"r": "relative_humidity_pl"})
