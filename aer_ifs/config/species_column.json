@@ -1,29 +1,49 @@
 {
-    "ss": {
+    "aerodsss": {
+        "type": "hydrophilic",
+        "column": 1
+    },
+    "aerodssm": {
+        "type": "hydrophilic",
+        "column": 2
+    },
+    "aerodssl": {
         "type": "hydrophilic",
         "column": 3
     },
-    "du": {
+    "aeroddus": {
+        "type": "hydrophilic",
+        "column": 17
+    },
+    "aeroddus": {
+        "type": "hydrophilic",
+        "column": 18
+    },
+    "aeroddus": {
         "type": "hydrophilic",
         "column": 19
     },
-    "om": {
+    "omaod550": {
         "type": "hydrophilic",
         "column": 4
     },
-    "su": {
+    "suaod550": {
         "type": "hydrophilic",
         "column": 13
     },
-    "bc": {
+    "bcaod550": {
         "type": "hydrophilic",
         "column": 11
     },
-    "ni": {
+    "aerodnif": {
         "type": "hydrophilic",
         "column": 9
     },
-    "am": {
+    "aerodnic": {
+        "type": "hydrophilic",
+        "column": 10
+    },
+    "amaod550": {
         "type": "hydrophilic",
         "column": 8
     },
