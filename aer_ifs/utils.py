@@ -17,10 +17,10 @@ class Store(str, Enum):
 def get_config(store: Store) -> dict:
     return {
         "paths": {
-            "ifs_od": f"/lustre/{store}/project/fou/kl/CAMS2_35b/cifs-model",
-            "ifs_rh_metproduction": f"/lustre/{store}/project/metproduction/products/ecmwf/nc",
-            "ifs_rh_archive": f"/lustre/{store}/project/fou/kl/CAMS2_35b/cifs-model",
-            "epro": f"/lustre/{store}/project/fou/kl/ceilometer/e-profile",
+            "ifs_od": f"/lustre/{store.value}/project/fou/kl/CAMS2_35b/cifs-model",
+            "ifs_rh_metproduction": f"/lustre/{store.value}/project/metproduction/products/ecmwf/nc",
+            "ifs_rh_archive": f"/lustre/{store.value}/project/fou/kl/CAMS2_35b/cifs-model",
+            "epro": f"/lustre/{store.value}/project/fou/kl/ceilometer/e-profile",
         },
         "filenames": {
             "ifs_od_00UTC": f"YYYYMMDD_cIFS-00UTC_4vpro_surface.nc",
