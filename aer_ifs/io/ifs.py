@@ -22,10 +22,15 @@ def read_od(datetime: datetime, CFG: dict) -> xr.Dataset:
     vars = [
         "amaod550",
         "bcaod550",
-        "duaod550",
-        "niaod550",
+        "aeroddus",
+        "aeroddum",
+        "aeroddul",
+        "aerodnif",
+        "aerodnic",
         "omaod550",
-        "ssaod550",
+        "aerodsss",
+        "aerodssm",
+        "aerodssl",
         "suaod550",
         "aod550",
     ]

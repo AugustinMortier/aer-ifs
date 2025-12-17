@@ -26,17 +26,22 @@ def get_config(store: Store) -> dict:
             "ifs_od_00UTC": f"YYYYMMDD_cIFS-00UTC_4vpro_surface.nc",
             "ifs_od_12UTC": f"YYYYMMDD_cIFS-12UTC_o-suite_surface.nc",
             "ifs_rh_metproduction": f"ec_atmo_0_1deg_YYYYMMDDT180000Z_pl.nc",
-            #"ifs_rh_archive": f"YYYYMMDD_cIFS-00UTC_4vpro_pl1000.nc",
+            # "ifs_rh_archive": f"YYYYMMDD_cIFS-00UTC_4vpro_pl1000.nc",
             "ifs_rh_archive_00UTC": f"YYYYMMDD_cIFS-00UTC_4vpro_pl1000.nc",
             "ifs_rh_archive_12UTC": f"YYYYMMDD_cIFS-12UTC_4vpro_pl1000.nc",
         },
         "vars": [
             "amaod550",
             "bcaod550",
-            "duaod550",
-            "niaod550",
+            "aeroddus",
+            "aeroddum",
+            "aeroddul",
+            "aerodnif",
+            "aerodnic",
             "omaod550",
-            "ssaod550",
+            "aerodsss",
+            "aerodssm",
+            "aerodssl",
             "suaod550",
         ],
         "wavelengths": [1064, 910, 905, 532],
@@ -90,7 +95,7 @@ def compute_lr(
         coords={
             "wav": wavs,
             "rh": rhs,
-            "species": [var[:2] for var in vars],
+            "species": vars,
             "latitude": ds["latitude"],
             "longitude": ds["longitude"],
         },
@@ -103,10 +108,9 @@ def compute_lr(
     for wav in wavs:
         for rh in rhs:
             for var in vars:
-                spec = var[:2]
-                lr.loc[dict(wav=wav, rh=rh, species=spec)] = ds[
+                lr.loc[dict(wav=wav, rh=rh, species=var)] = ds[
                     f"{var}/aod550"
-                ] * ifs_species_lr(spec, wav, rh)
+                ] * ifs_species_lr(var, wav, rh)
 
     # Sum across species to get the total lidar ratio for each wav and rh
     lr_total = lr.sum(dim="species")
@@ -152,7 +156,7 @@ def compute_mec(
         coords={
             "wav": wavs,
             "rh": rhs,
-            "species": [var[:2] for var in vars],
+            "species": vars,
             "latitude": ds["latitude"],
             "longitude": ds["longitude"],
         },
@@ -165,9 +169,8 @@ def compute_mec(
     for wav in wavs:
         for rh in rhs:
             for var in vars:
-                species = var[:2]
-                mec.loc[dict(wav=wav, rh=rh, species=species)] = (
-                    ds[f"{var}/aod550"] * ifs_species_mec(species, wav, rh) * 1e-3
+                mec.loc[dict(wav=wav, rh=rh, species=var)] = (
+                    ds[f"{var}/aod550"] * ifs_species_mec(var, wav, rh) * 1e-3
                 )
 
     # Sum across species to get the total MEC for each wav and rh
