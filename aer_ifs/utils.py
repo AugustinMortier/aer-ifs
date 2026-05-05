@@ -15,10 +15,15 @@ class Store(str, Enum):
 
 
 def get_config(store: Store) -> dict:
+    # hardcode metproduction files
+    if store.value == "storeA":
+        metproduction_path = "/lustre/storeA/project/metproduction"
+    elif store.value == "storeB":
+        metproduction_path = "/lustre/metproductionB"
     return {
         "paths": {
             "ifs_od": f"/lustre/{store.value}/project/fou/kl/CAMS2_35b/cifs-model",
-            "ifs_rh_metproduction": f"/lustre/{store.value}/project/metproduction/products/ecmwf/nc",
+            "ifs_rh_metproduction": f"{metproduction_path}/products/ecmwf/nc",
             "ifs_rh_archive": f"/lustre/{store.value}/project/fou/kl/CAMS2_35b/cifs-model",
             "epro": f"/lustre/{store.value}/project/fou/kl/ceilometer/e-profile",
         },
