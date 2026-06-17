@@ -43,9 +43,10 @@ git clone https://github.com/AugustinMortier/aer-ifs.git
 ```
 
 ### 2. install
-- via poetry
+- via uv
 ```
-poetry install
+uv venv
+uv pip install .
 ```
 
 - via pip/pipx

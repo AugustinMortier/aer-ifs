@@ -1,14 +1,18 @@
 [project]
 name = "aer-ifs"
-version = "0.8.0"
+version = "0.9.0"
 description = "Lidar Ratio computation from ECMWF IFS model data"
-authors = [
-  {name = "Augustin Mortier", email = "augustinm@met.no"},
-]
-readme = "README.md"
+authors = [{ name = "Augustin Mortier", email = "augustinm@met.no" }]
 requires-python = ">=3.10,<4.0"
-
-
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
 dependencies = [
     "xarray ~= 2024.9",
     "typer ~= 0.12.5",
@@ -19,13 +23,18 @@ dependencies = [
     "scipy ~= 1.14",
 ]
 
-[tool.poetry.group.dev.dependencies]
-ipykernel = "^6.29.5"
-cartopy = "^0.23.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
 [project.scripts]
 aer-ifs = "aer_ifs.main:app"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5,<7",
+    "cartopy>=0.23.0,<0.24",
+]
+
+[tool.uv]
+default-groups = "all"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
