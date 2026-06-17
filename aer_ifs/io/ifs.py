@@ -37,6 +37,7 @@ def read_od(datetime: datetime, CFG: dict) -> xr.Dataset:
     # daily average and date selection
     ds = (
         xr.open_dataset(ifs_file)[vars]
+        .sortby("time")
         .resample(time="D")
         .mean()
         .sel(time=datetime)

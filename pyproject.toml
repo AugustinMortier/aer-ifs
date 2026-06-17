@@ -15,7 +15,7 @@ classifiers = [
 ]
 dependencies = [
     "xarray ~= 2024.9",
-    "typer ~= 0.12.5",
+    "typer >= 0.13",
     "netcdf4 ~= 1.7",
     "matplotlib ~= 3.9",
     "dask ~= 2024.9",
@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 [project.scripts]
-aer-ifs = "aer_ifs.main:app"
+aer-ifs = "aer_ifs.main:cli"
 
 [dependency-groups]
 dev = [

@@ -46,7 +46,8 @@ git clone https://github.com/AugustinMortier/aer-ifs.git
 - via uv
 ```
 uv venv
-uv pip install .
+uv sync # --dev or --no-dev
+source .venv/bin/activate
 ```
 
 - via pip/pipx
