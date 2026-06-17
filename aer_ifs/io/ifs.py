@@ -63,6 +63,7 @@ def read_rh(datetime: datetime, CFG: dict) -> xr.Dataset:
         # daily average and date selection
         ds = (
             xr.open_dataset(ifs_file)[vars]
+            .sortby("time")
             .resample(time="D")
             .mean()
             .sel(time=datetime)
@@ -89,6 +90,7 @@ def read_rh(datetime: datetime, CFG: dict) -> xr.Dataset:
         # daily average and date selection
         ds = (
             xr.open_dataset(ifsrh_file)[vars]
+            .sortby("time")
             .resample(time="D")
             .mean()
             .sel(time=datetime)
