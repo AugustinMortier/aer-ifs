@@ -17,7 +17,7 @@ class Store(str, Enum):
 def get_config(store: Store) -> dict:
     # hardcode metproduction files
     if store.value == "storeA":
-        metproduction_path = "/lustre/storeA/project/metproduction"
+        metproduction_path = "/lustre/metproductionA"
     elif store.value == "storeB":
         metproduction_path = "/lustre/metproductionB"
     return {
