@@ -1,6 +1,6 @@
 [project]
 name = "aer-ifs"
-version = "0.9.0"
+version = "0.9.1"
 description = "Lidar Ratio computation from ECMWF IFS model data"
 authors = [{ name = "Augustin Mortier", email = "augustinm@met.no" }]
 requires-python = ">=3.10,<4.0"
